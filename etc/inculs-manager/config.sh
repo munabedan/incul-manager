@@ -1,16 +1,18 @@
+# username and password used to connect to containers
+
 username="incul"
 
 password="incul"
 
+# source archive mirror for the containers
+
 new_sources="
-deb http://debian.mirror.liquidtelecom.com/debian/ bookworm non-free-firmware contrib main non-free
-deb-src http://debian.mirror.liquidtelecom.com/debian/ bookworm non-free-firmware contrib main non-free
+deb http://deb.debian.org/debian bookworm main contrib non-free non-free-firmware
+deb-src http://deb.debian.org/debian bookworm main contrib non-free non-free-firmware
 
-deb http://security.debian.org/debian-security bookworm-security non-free-firmware contrib main non-free
-deb-src http://security.debian.org/debian-security bookworm-security non-free-firmware contrib main non-free
+deb http://deb.debian.org/debian-security/ bookworm-security main contrib non-free non-free-firmware
+deb-src http://deb.debian.org/debian-security/ bookworm-security main contrib non-free non-free-firmware
 
-# bookworm-updates, to get updates before a point release is made;
-# see https://www.debian.org/doc/manuals/debian-reference/ch02.en.html#_updates_and_backports
-deb http://debian.mirror.liquidtelecom.com/debian/ bookworm-updates non-free-firmware contrib main non-free
-deb-src http://debian.mirror.liquidtelecom.com/debian/ bookworm-updates non-free-firmware contrib main non-free
+deb http://deb.debian.org/debian bookworm-updates main contrib non-free non-free-firmware
+deb-src http://deb.debian.org/debian bookworm-updates main contrib non-free non-free-firmware
 "
