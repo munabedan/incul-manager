@@ -1,0 +1,61 @@
+<!DOCTYPE Menu PUBLIC "-//freedesktop//DTD Menu 1.0//EN"
+  "http://www.freedesktop.org/standards/menu-spec/1.0/menu.dtd">
+
+<Menu>
+    <Name>Xfce</Name>
+
+    <DefaultAppDirs/>
+    <DefaultDirectoryDirs/>
+
+    <Include>
+        <Category>X-Xfce-Toplevel</Category>
+    </Include>
+
+    <Layout>
+        <Filename>xfce4-run.desktop</Filename>
+        <Filename>xfce4-terminal-emulator.desktop</Filename>
+        <Separator/>
+        <Menuname>System Tools</Menuname> 
+		<!--Insert-container-menu-layout-->      
+              	
+        <Separator/>
+        <Filename>xfce4-session-logout.desktop</Filename>
+    </Layout>
+
+  <!--Insert-container-menu--> 
+
+
+  <Menu>
+    <Name>System Tools</Name>
+    <Directory>system-tools.directory</Directory>
+
+    <DefaultAppDirs/>
+    <DefaultDirectoryDirs/>
+    <DefaultMergeDirs/>
+
+    <Include>
+        <Category>X-Xfce-Toplevel</Category>
+        <Category>Settings</Category>
+        <Category>Accessibility</Category>
+        <Category>Core</Category>
+        <Category>Legacy</Category>
+        <Category>Utility</Category>
+        <Category>Development</Category>
+        <Category>Education</Category>
+        <Category>Game</Category>
+        <Category>Graphics</Category>
+        <Category>Audio</Category>
+        <Category>Video</Category>
+        <Category>AudioVideo</Category>
+        <Category>Network</Category>
+        <Category>Office</Category>
+        <Category>System</Category>
+    </Include>
+
+    <Layout>
+        <Merge type="all"/>
+    </Layout>
+  </Menu>   
+    <DefaultMergeDirs/>
+
+</Menu>

@@ -1,0 +1,4 @@
+#!/bin/bash
+
+
+pkill xfce4-panel; sleep 3; xfce4-panel & disown
