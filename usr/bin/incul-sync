@@ -61,7 +61,7 @@ extract_global_inet_ip() {
 
 container_ip=$(incus info $container_name | extract_global_inet_ip)
 
-config_file="/etc/inculs-manager/config.sh"
+config_file="/tmp/config.sh"
 
 source "$config_file"
 
