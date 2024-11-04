@@ -12,27 +12,31 @@ This project is a hobbyist endeavor and not developed by a security expert. It d
 
 - Debian XFCE installed as the base operating system.
 
-
 ## Installation
 
 1. **Download**: Obtain the `.deb` package of Incul-manager.
 2. **Install**: Run the following command in your terminal:
-   ```
+
+   ```bash
    sudo dpkg -i incul-manager.deb
    ```
 
 ## Getting Started
 
 1. **Initialize**: Configure your system with Incul-manager by running:
-   ```
+
+   ```bash
    incul-manager init
    ```
+
    This sets up the necessary dependencies including Incus system containers.
 
 2. **Create Template**: Create a Debian-based Incus system container template:
-   ```
+
+   ```bash
    incul-manager create-template
    ```
+
    This template includes essential applications like Thunar, XFCE4-terminal, and more.
 
 3. **Manage Containers**: Create and manage containers using commands like:
@@ -41,9 +45,11 @@ This project is a hobbyist endeavor and not developed by a security expert. It d
    - `incul-manager delete` to remove containers when no longer needed.
 
 4. **Application Integration**: Sync container applications to the host menu with:
-   ```
+
+   ```bash
    incul-manager sync
    ```
+
    This integrates container applications seamlessly into your desktop environment.
 
 5. **Running Applications**: Launch applications within containers directly from the updated host menu. 
@@ -65,8 +71,8 @@ Incul-manager utilizes Incus containers, developed as an alternative to LXD, and
 - This project is open to contributions and feedback.
 
 ### To-Do
+
 - [ ] Ability to choose a password when creating a container
 - [ ] Create a different docker network for each container
-- [ ] Ensure consistent color for windows related to the same container 
-
-
+- [ ] Ensure consistent color for windows related to the same container
+- [ ] be able to create different templates
