@@ -21,7 +21,7 @@ password=$password
 
 EOL
 cat /etc/inculs-manager/config.sh >> $temp_file
-mv $temp_file /etc/inculs-manager/config.sh
+mv $temp_file /tmp/config.sh
 
 # launch incus
 incus admin init --minimal
@@ -29,7 +29,7 @@ incus admin init --minimal
 incus launch images:debian/12 incul-template
 
 #copy files to container
-incus file push /etc/inculs-manager/config.sh incul-template/root/
+incus file push /tmp/config.sh incul-template/root/
 
 incus file push /usr/bin/update-inculs-sources incul-template/root/
 
