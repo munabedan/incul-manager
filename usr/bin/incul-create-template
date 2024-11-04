@@ -10,6 +10,13 @@ read -sp "Enter password (default: incul): " password
 password=${password:-incul}
 echo
 
+read -sp "Enter template name (default: incul-template): " template_name
+template_name=${template_name:-incul-template}
+
+# TO BE IMPLEMENTED, neeed a file for each possible package manager (apt, pacman, etc)
+read -sp "Enter icus image (default: debian/12): TO BE IMPLEMENTED" icus_image 
+icus_image=${icus_image:-debian/12}
+
 # Add the provided or default values to the start of the existing config.sh file
 temp_file=$(mktemp)
 cat <<EOL > $temp_file
@@ -19,17 +26,19 @@ username="$username"
 
 password="$password"
 
+template_name="$template_name"
+
 EOL
 cat /etc/inculs-manager/config.sh >> $temp_file
-mv $temp_file /tmp/config.sh
+mv $temp_file /etc/inculs-manager/"$template_name"-config.sh
 
 # launch incus
 incus admin init --minimal
 
-incus launch images:debian/12 incul-template
+incus launch images:debian/12 $template_name
 
 #copy files to container
-incus file push /tmp/config.sh incul-template/root/
+incus file push /etc/inculs-manager/"$template_name"-config.sh incul-template/root/config.sh
 
 incus file push /usr/bin/update-inculs-sources incul-template/root/
 

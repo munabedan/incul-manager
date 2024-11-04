@@ -5,13 +5,14 @@ import sys
 import subprocess
 import os
 import time
+import shutil
 
 # create  incul container
 # - create incul container
 # - append incul container .desktop files to host .desktop files
-def create(container_name):
-    subprocess.run(["incus", "copy", "incul-template", container_name])
-
+def create(container_name, template_name):
+    subprocess.run(["incus", "copy", template_name, container_name])
+    shutil.copy(f"etc/inculs-manager/{template_name}-config.sh", f"etc/inculs-manager/{container_name}-config.sh")
     start(container_name)
 
     # wait for container to start
