@@ -140,9 +140,7 @@ if __name__ == "__main__":
     }
 
     if action not in actions:
-        print(
-            "Invalid action. Please choose one of: create|run|pause|stop|restart|backup|delete|list"
-        )
+        print(f"Invalid action. Please choose one of: { '|'.join(actions.keys()) }")
         sys.exit(1)
 
     if action == "list":
