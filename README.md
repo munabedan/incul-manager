@@ -64,4 +64,9 @@ Incul-manager utilizes Incus containers, developed as an alternative to LXD, and
 
 - This project is open to contributions and feedback.
 
+### To-Do
+- [ ] Ability to choose a password when creating a container
+- [ ] Create a different docker network for each container
+- [ ] Ensure consistent color for windows related to the same container 
+
 
