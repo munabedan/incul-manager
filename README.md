@@ -52,19 +52,18 @@ This project is a hobbyist endeavor and not developed by a security expert. It d
 
    This integrates container applications seamlessly into your desktop environment.
 
-5. **Running Applications**: Launch applications within containers directly from the updated host menu. 
+5. **Running Applications**: Launch applications within containers directly from the updated host menu.
 
 6. **Additional Features**: Utilize XPRA for managing X11 applications remotely, clipboard sharing, and file uploads to containers.
 
 ## Architecture
 
-Incul-manager utilizes Incus containers, developed as an alternative to LXD, and XPRA for remote application access. 
+Incul-manager utilizes Incus containers, developed as an alternative to LXD, and XPRA for remote application access.
 
 ## Limitations
 
 - Not as secure as Qubes OS due to different underlying technologies specifically containers.
 - Developed as a personal hobby project, hence may lack robustness or comprehensive security features.
-
 
 ## Feedback and Contributions
 
