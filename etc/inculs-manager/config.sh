@@ -1,9 +1,3 @@
-# username and password used to connect to containers
-
-username="incul"
-
-password="incul"
-
 # source archive mirror for the containers
 
 new_sources="

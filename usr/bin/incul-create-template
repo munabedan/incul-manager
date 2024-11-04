@@ -2,6 +2,27 @@
 
 echo -e "\n\e[1;33mSetup incul template...\e[0m"
 
+# Prompt for username and password
+read -p "Enter username (default: incul): " username
+username=${username:-incul}
+
+read -sp "Enter password (default: incul): " password
+password=${password:-incul}
+echo
+
+# Add the provided or default values to the start of the existing config.sh file
+temp_file=$(mktemp)
+cat <<EOL > $temp_file
+# username and password used to connect to containers
+
+username=$username
+
+password=$password
+
+EOL
+cat /etc/inculs-manager/config.sh >> $temp_file
+mv $temp_file /etc/inculs-manager/config.sh
+
 # launch incus
 incus admin init --minimal
 
