@@ -15,9 +15,9 @@ temp_file=$(mktemp)
 cat <<EOL > $temp_file
 # username and password used to connect to containers
 
-username=$username
+username="$username"
 
-password=$password
+password="$password"
 
 EOL
 cat /etc/inculs-manager/config.sh >> $temp_file
