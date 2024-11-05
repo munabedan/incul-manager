@@ -44,7 +44,7 @@ incus admin init --minimal
 incus launch images:debian/12 $template_name --network def
 
 #copy files to container
-incus file push /home/$USER/.config/inculs-manager/"$template_name"-config.sh "$template_name"/root/config.sh
+incus file push /home/$USER/.config/incul-manager/"$template_name"-config.sh "$template_name"/root/config.sh
 
 incus file push /usr/bin/update-inculs-sources "$template_name"/root/
 
