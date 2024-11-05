@@ -20,6 +20,33 @@ def create(container_name, template_name):
     # TODO: check for ip availability instead
     time.sleep(5)
 
+    # Ask if the user wants a new username and password for this container
+    new_user = input("Do you want to create a new user for this container? (yes/no): ").strip().lower()
+    if new_user == "yes":
+        username = input("Enter the new username: ").strip()
+        password = input("Enter the new password: ").strip()
+        with open(f"{home}/.config/incul-manager/{container_name}-config.sh", "r") as file:
+            config_lines = file.readlines()
+
+        with open(f"{home}/.config/incul-manager/{container_name}-config.sh", "w") as file:
+            for line in config_lines:
+                if line.startswith("username="):
+                    file.write(f'username="{username}"\n')
+                elif line.startswith("password="):
+                    file.write(f'password="{password}"\n')
+                else:
+                    file.write(line)
+        subprocess.run(["incus", "push", f"{home}/.config/incul-manager/{container_name}-config.sh", f"{container_name}/root/config.sh"])
+        subprocess.run(["incus", "exec", container_name, "--", "chmod", "+x", "/root/config.sh"])
+        subprocess.run(["incus", "exec", container_name, "--", "/root/config.sh"])
+        # Copy the username from the template config.sh if not creating a new user
+        with open(f"{home}/.config/incul-manager/{template_name}-config.sh", "r") as file:
+            for line in file:
+                if line.startswith("username="):
+                    username = line.split("=")[1].strip().strip('"')
+                    subprocess.run(["incus", "exec", container_name, "--", "deluser", username])
+                break
+        
     sync()
 
     restart_panel()
