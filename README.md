@@ -42,13 +42,14 @@ This project is a hobbyist endeavor and not developed by a security expert. It d
    ```bash
    incul-manager create-template
    ```
+   During the creation of the template, you will be asked to choose username, password and container name.
 
    This template includes essential applications like Thunar, XFCE4-terminal, and more.
 
 3. **Manage Containers**: Create and manage containers using commands like:
    - `incul-manager create <container-name> <template-name>` to create new containers.
    - `incul-manager list` to list all created containers.
-   - `incul-manager delete` to remove containers when no longer needed.
+   - `incul-manager delete <container-name>` to remove containers when no longer needed.
 
 4. **Application Integration**: Sync container applications to the host menu with:
 
@@ -77,8 +78,11 @@ Incul-manager utilizes Incus containers, developed as an alternative to LXD, and
 
 ### To-Do
 
-- [ ] Ability to choose a password when creating a container
+- [ ] Ability to choose username and password 
+   - [X] For the template container
+   - [ ] For the user container
 - [ ] Create a different docker network for each container
 - [ ] Ensure consistent color for windows related to the same container
-- [ ] Ability to create different templates
+- [ ] Ability to create templates for other distros
 - [ ] Make it installable on other distros/DE
+- [ ] Hide app from template container in the host 
