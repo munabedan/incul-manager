@@ -6,6 +6,7 @@ if incus network list | grep -q "def"; then
 else
     echo "Network 'def' does not exist. Please create it before proceeding."
     incus network create def
+    incus network detach-profile incusbr0 default 
 fi
 
 echo -e "\n\e[1;33mSetup incul template...\e[0m"
