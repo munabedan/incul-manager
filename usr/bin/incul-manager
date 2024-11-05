@@ -11,8 +11,9 @@ import shutil
 # - create incul container
 # - append incul container .desktop files to host .desktop files
 def create(container_name, template_name):
+    home = os.environ["HOME"]
     subprocess.run(["incus", "copy", template_name, container_name])
-    shutil.copy(f"etc/inculs-manager/{template_name}-config.sh", f"etc/inculs-manager/{container_name}-config.sh")
+    shutil.copy(f"{home}/.config/{template_name}-config.sh", f"{home}/.config/{container_name}-config.sh")
     start(container_name)
 
     # wait for container to start

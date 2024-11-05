@@ -30,7 +30,7 @@ template_name="$template_name"
 
 EOL
 cat /etc/inculs-manager/config.sh >> $temp_file
-mv $temp_file /etc/inculs-manager/"$template_name"-config.sh
+mv $temp_file /home/$USER/.config/inculs-manager/"$template_name"-config.sh
 
 # launch incus
 incus admin init --minimal
@@ -38,26 +38,26 @@ incus admin init --minimal
 incus launch images:debian/12 $template_name
 
 #copy files to container
-incus file push /etc/inculs-manager/"$template_name"-config.sh incul-template/root/config.sh
+incus file push /home/$USER/.config/inculs-manager/"$template_name"-config.sh "$template_name"/root/config.sh
 
-incus file push /usr/bin/update-inculs-sources incul-template/root/
+incus file push /usr/bin/update-inculs-sources "$template_name"/root/
 
-incus file push /usr/bin/incul-create-user incul-template/root/
+incus file push /usr/bin/incul-create-user "$template_name"/root/
 
 #make executable
-incus exec incul-template -- chmod +x update-inculs-sources
+incus exec "$template_name" -- chmod +x update-inculs-sources
 
-incus exec incul-template -- chmod +x incul-create-user
+incus exec "$template_name" -- chmod +x incul-create-user
 
 #update container
-incus exec incul-template -- /root/update-inculs-sources
+incus exec "$template_name" -- /root/update-inculs-sources
 
-incus exec incul-template -- apt-get update
+incus exec "$template_name" -- apt-get update
 
 # Install packages
-incus exec incul-template -- apt-get install thunar xfce4-terminal xfce4-notifyd xfwm4 openssh-server xpra openssl
+incus exec "$template_name" -- apt-get install thunar xfce4-terminal xfce4-notifyd xfwm4 openssh-server xpra openssl
 
 #create sudo user
-incus exec incul-template -- /root/incul-create-user
+incus exec "$template_name" -- /root/incul-create-user
 
 echo -e "\n\e[1;33mTemplate creation complete...\e[0m"
