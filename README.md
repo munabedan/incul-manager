@@ -3,6 +3,9 @@
 
 # NOTE:
 The project is under heavy development and not all commits are stable. If someone is interested in a stable version, please open an issue and i try to provide a stable version as soon as possible.
+There are 2 main branches:
+   - **main**: i try to push a new feature only after i'm sure it's stable or something need a fix
+   - **dev**: 99% of the time is broken, it's used for the active development and it's going to be merged in the main each time a feature is complete  
 
 ## Overview
 
