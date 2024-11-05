@@ -1,5 +1,9 @@
 # Incul-manager
 
+
+# NOTE:
+The project is under heavy development and not all commits are stable. If someone is interested in a stable version, please open an issue and i try to provide a stable version as soon as possible.
+
 ## Overview
 
 Incul-manager is a project aimed at replicating some functionalities of Qubes OS using Incus containers and XPRA for seamless application access through ssh.
@@ -14,10 +18,12 @@ This project is a hobbyist endeavor and not developed by a security expert. It d
 
 ## Installation
 
-1. **Download**: Obtain the `.deb` package of Incul-manager.
-2. **Install**: Run the following command in your terminal:
-
    ```bash
+   # clone the repository
+   git clone https://github.com/AlessandroMIlani/incul-manager
+   # create the deb package
+   dpkg-deb --root-owner-group --build incul-manager
+   # install the deb package
    sudo dpkg -i incul-manager.deb
    ```
 
@@ -40,7 +46,7 @@ This project is a hobbyist endeavor and not developed by a security expert. It d
    This template includes essential applications like Thunar, XFCE4-terminal, and more.
 
 3. **Manage Containers**: Create and manage containers using commands like:
-   - `incul-manager create-container` to create new containers.
+   - `incul-manager create <container-name> <template-name>` to create new containers.
    - `incul-manager list` to list all created containers.
    - `incul-manager delete` to remove containers when no longer needed.
 
@@ -74,4 +80,5 @@ Incul-manager utilizes Incus containers, developed as an alternative to LXD, and
 - [ ] Ability to choose a password when creating a container
 - [ ] Create a different docker network for each container
 - [ ] Ensure consistent color for windows related to the same container
-- [ ] be able to create different templates
+- [ ] Ability to create different templates
+- [ ] Make it installable on other distros/DE
