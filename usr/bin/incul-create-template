@@ -10,11 +10,11 @@ read -sp "Enter password (default: incul): " password
 password=${password:-incul}
 echo
 
-read -sp "Enter template name (default: incul-template): " template_name
+read -p "Enter template name (default: incul-template): " template_name
 template_name=${template_name:-incul-template}
 
 # TO BE IMPLEMENTED, neeed a file for each possible package manager (apt, pacman, etc)
-read -sp "Enter icus image (default: debian/12): TO BE IMPLEMENTED" icus_image 
+read -p "Enter icus image (default: debian/12): TO BE IMPLEMENTED" icus_image 
 icus_image=${icus_image:-debian/12}
 
 # Add the provided or default values to the start of the existing config.sh file
