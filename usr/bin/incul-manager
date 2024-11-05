@@ -36,16 +36,19 @@ def create(container_name, template_name):
                     file.write(f'password="{password}"\n')
                 else:
                     file.write(line)
-        subprocess.run(["incus", "push", f"{home}/.config/incul-manager/{container_name}-config.sh", f"{container_name}/root/config.sh"])
+        subprocess.run(["incus", "file", "push", f"{home}/.config/incul-manager/{container_name}-config.sh", f"{container_name}/root/config.sh"])
         subprocess.run(["incus", "exec", container_name, "--", "chmod", "+x", "/root/config.sh"])
-        subprocess.run(["incus", "exec", container_name, "--", "/root/config.sh"])
+        subprocess.run(["incus", "exec", container_name, "--", "/root/update-inculs-sources"])
+        subprocess.run(["incus", "exec", container_name, "--", "/root/incul-create-user"])
         # Copy the username from the template config.sh if not creating a new user
         with open(f"{home}/.config/incul-manager/{template_name}-config.sh", "r") as file:
             for line in file:
+                print(line)
                 if line.startswith("username="):
                     username = line.split("=")[1].strip().strip('"')
-                    subprocess.run(["incus", "exec", container_name, "--", "deluser", username])
-                break
+                    print(f"Username copied from template: {username}")
+                    subprocess.run(["incus", "exec", container_name, "--","sudo", "deluser", "--remove-all-file", username])
+                    break
         
     sync()
 
