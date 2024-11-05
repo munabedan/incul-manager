@@ -49,10 +49,6 @@ for file in "$folder_path"/*.desktop; do
 	fi
 done
 
-#logout
-
-#TODO: Update the exec to include xpra start
-
 # Ignore  the all exec keys %f %F %u %U %i %c %k in the Exec Line
 
 extract_global_inet_ip() {

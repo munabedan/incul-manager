@@ -1,9 +1,7 @@
 #!/bin/bash
 
 # Check if "def" is in the incus network list
-if incus network list | grep -q "def"; then
-    echo "Network 'def' exists."
-else
+if ! incus network list | grep -q "def"; then
     echo "Network 'def' does not exist. Please create it before proceeding."
     incus network create def
     incus network detach-profile incusbr0 default 
@@ -17,10 +15,9 @@ username=${username:-incul}
 
 read -sp "Enter password (default: incul): " password
 password=${password:-incul}
-echo
 
 read -p "Enter template name (default: incul-template): " template_name
-template_name=${template_name:-incul-template}
+template_name=${template_name:-incul-template} 
 
 # TO BE IMPLEMENTED, neeed a file for each possible package manager (apt, pacman, etc)
 # read -p "Enter icus image (default: debian/12): TO BE IMPLEMENTED" icus_image 
