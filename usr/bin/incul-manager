@@ -26,6 +26,9 @@ def create(container_name, template_name):
 
 
 def start(container_name):
+    subprocess.run(["incus", "network", "detach", "def", container_name])
+    subprocess.run(["incus", "network", "create", f"net-{container_name}"])
+    subprocess.run(["incus", "network", "attach", f"net-{container_name}", container_name])
     subprocess.run(["incus", "start", container_name])
 
 

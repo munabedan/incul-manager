@@ -1,5 +1,13 @@
 #!/bin/bash
 
+# Check if "def" is in the incus network list
+if incus network list | grep -q "def"; then
+    echo "Network 'def' exists."
+else
+    echo "Network 'def' does not exist. Please create it before proceeding."
+    incus network create def
+fi
+
 echo -e "\n\e[1;33mSetup incul template...\e[0m"
 
 # Prompt for username and password
@@ -14,8 +22,8 @@ read -p "Enter template name (default: incul-template): " template_name
 template_name=${template_name:-incul-template}
 
 # TO BE IMPLEMENTED, neeed a file for each possible package manager (apt, pacman, etc)
-read -p "Enter icus image (default: debian/12): TO BE IMPLEMENTED" icus_image 
-icus_image=${icus_image:-debian/12}
+# read -p "Enter icus image (default: debian/12): TO BE IMPLEMENTED" icus_image 
+# icus_image=${icus_image:-debian/12}
 
 # Add the provided or default values to the start of the existing config.sh file
 temp_file=$(mktemp)
@@ -26,8 +34,6 @@ username="$username"
 
 password="$password"
 
-template_name="$template_name"
-
 EOL
 cat /etc/inculs-manager/config.sh >> $temp_file
 mv $temp_file /home/$USER/.config/inculs-manager/"$template_name"-config.sh
@@ -35,7 +41,7 @@ mv $temp_file /home/$USER/.config/inculs-manager/"$template_name"-config.sh
 # launch incus
 incus admin init --minimal
 
-incus launch images:debian/12 $template_name
+incus launch images:debian/12 $template_name --network def
 
 #copy files to container
 incus file push /home/$USER/.config/inculs-manager/"$template_name"-config.sh "$template_name"/root/config.sh
@@ -59,5 +65,7 @@ incus exec "$template_name" -- apt-get install thunar xfce4-terminal xfce4-notif
 
 #create sudo user
 incus exec "$template_name" -- /root/incul-create-user
+
+incus stop "$template_name"
 
 echo -e "\n\e[1;33mTemplate creation complete...\e[0m"
