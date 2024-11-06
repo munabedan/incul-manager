@@ -93,5 +93,5 @@ Incul-manager utilizes Incus containers, developed as an alternative to LXD, and
 
 ### Low Priority
 
-- [ ] Ability to create templates for other distros
+- [ ] Ability to create templates from other distros images
 - [ ] Make it installable on other distros/DE
