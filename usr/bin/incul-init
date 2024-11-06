@@ -26,6 +26,7 @@ mkdir -p /home/$USER/.local/share/applications
 mkdir -p /home/$USER/.local/share/desktop-directories
 mkdir -p /home/$USER/.config/menus
 mkdir -p /home/$USER/.config/inculs-manager
+mkdir -p /home/$USER/.config/inculs-manager/configs
 
 sudo cp -r /etc/inculs-manager/launcher-config/desktop-directories /home/$USER/.local/share/
 sudo cp /etc/inculs-manager/launcher-config/xfce-applications.menu /home/$USER/.config/menus

@@ -13,7 +13,7 @@ import shutil
 def create(container_name, template_name):
     home = os.environ["HOME"]
     subprocess.run(["incus", "copy", template_name, container_name])
-    shutil.copy(f"{home}/.config/incul-manager/{template_name}-config.sh", f"{home}/.config/incul-manager/{container_name}-config.sh")
+    shutil.copy(f"{home}/.config/inculs-manager/configs/{template_name}-config.sh", f"{home}/.config/inculs-manager/configs/{container_name}-config.sh")
     start(container_name)
 
     # wait for container to start
@@ -25,10 +25,10 @@ def create(container_name, template_name):
     if new_user == "yes":
         username = input("Enter the new username: ").strip()
         password = input("Enter the new password: ").strip()
-        with open(f"{home}/.config/incul-manager/{container_name}-config.sh", "r") as file:
+        with open(f"{home}/.config/inculs-manager/configs/{container_name}-config.sh", "r") as file:
             config_lines = file.readlines()
 
-        with open(f"{home}/.config/incul-manager/{container_name}-config.sh", "w") as file:
+        with open(f"{home}/.config/inculs-manager/configs/{container_name}-config.sh", "w") as file:
             for line in config_lines:
                 if line.startswith("username="):
                     file.write(f'username="{username}"\n')
@@ -36,12 +36,12 @@ def create(container_name, template_name):
                     file.write(f'password="{password}"\n')
                 else:
                     file.write(line)
-        subprocess.run(["incus", "file", "push", f"{home}/.config/incul-manager/{container_name}-config.sh", f"{container_name}/root/config.sh"])
+        subprocess.run(["incus", "file", "push", f"{home}/.config/inculs-manager/configs/{container_name}-config.sh", f"{container_name}/root/config.sh"])
         subprocess.run(["incus", "exec", container_name, "--", "chmod", "+x", "/root/config.sh"])
         subprocess.run(["incus", "exec", container_name, "--", "/root/update-inculs-sources"])
         subprocess.run(["incus", "exec", container_name, "--", "/root/incul-create-user"])
         # Copy the username from the template config.sh if not creating a new user
-        with open(f"{home}/.config/incul-manager/{template_name}-config.sh", "r") as file:
+        with open(f"{home}/.config/inculs-manager/configs/{template_name}-config.sh", "r") as file:
             for line in file:
                 print(line)
                 if line.startswith("username="):

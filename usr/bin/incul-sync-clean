@@ -10,8 +10,3 @@ rm -rf /home/$USER/.config/menus/*
 
 sudo cp -r /etc/inculs-manager/launcher-config/desktop-directories /home/$USER/.local/share/
 sudo cp /etc/inculs-manager/launcher-config/xfce-applications.menu /home/$USER/.config/menus
-
-
-
-
-
