@@ -64,6 +64,27 @@ source "$config_file"
 # Folder path containing .desktop files
 folder_path="/home/$USER/.local/share/applications/$container_name"
 
+# Array of colors with hex codes
+colors=(
+	"#5928ed" #purple
+	"#f57600" #brown
+	"#0073e6" #blue
+	"#356140" #green
+	"#f9ed00" #yellow
+	"#de3187" #pink
+)
+# TODO: create menu Icon with corresponding color in menu
+# Get the number of colors
+num_colors=${#colors[@]}
+# Generate a random index within the range of colors
+index=$((RANDOM % num_colors))
+# Generate an index from the container IP
+ip_sum=$(echo "$container_ip" | tr '.' ' ' | awk '{sum = $1 + $2 + $3 + $4; print sum}')
+index=$((ip_sum % num_colors))
+# Get the hex code at the random index
+random_color=${colors[$index]}
+
+
 # Loop through each .desktop file in the folder
 for file in "$folder_path"/*.desktop; do
 	# Check if file is a regular file
@@ -75,7 +96,7 @@ for file in "$folder_path"/*.desktop; do
 		old_args=$(echo "$old_exec" | sed -E 's/(^| )%[fFuUiIcCkK]($| )//g')
 
 		# Create the new Exec string
-		new_exec="Exec=bash -c 'xpra start ssh://$username:$password@$container_ip --title=\"${container_name^}: @title@\" --border=auto,5 --exit-with-children --start-child=\"$old_args\"'"
+		new_exec="Exec=bash -c 'xpra start ssh://$username:$password@$container_ip --title=\"${container_name^}: @title@\" --border=${colors[$index]},3 --exit-with-children --start-child=\"$old_args\"'"
 
 		# Replace the Exec string in the file
 		sed -i "s|^Exec=.*$|$new_exec|" "$file"
