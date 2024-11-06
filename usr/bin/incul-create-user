@@ -13,3 +13,5 @@ adduser --disabled-password --comment "" "$username"
 usermod -aG sudo "$username"
 
 echo "$username:$password" | /usr/sbin/chpasswd -c SHA512
+
+rm config.sh
