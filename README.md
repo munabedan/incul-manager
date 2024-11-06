@@ -79,13 +79,19 @@ Incul-manager utilizes Incus containers, developed as an alternative to LXD, and
 
 - This project is open to contributions and feedback.
 
-### To-Do
+## To-Do
 
-- [X] Ability to choose username and password 
-   - [X] For the template container
-   - [X] For the user container
+### Hight Priority
+
+- [X] Ability to choose username and password
+  - [X] For the template container
+  - [X] For the user container
 - [X] Create a different docker network for each container
 - [X] Ensure consistent color for windows related to the same container
+- [ ] Hide app from template container in the host
+- [ ] Create 2 lists, one for the template containers and one for the user containers
+
+### Low Priority
+
 - [ ] Ability to create templates for other distros
 - [ ] Make it installable on other distros/DE
-- [ ] Hide app from template container in the host 
