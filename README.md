@@ -1,12 +1,5 @@
 # Incul-manager
 
-
-# NOTE:
-The project is under heavy development and not all commits are stable. If someone is interested in a stable version, please open an issue and i try to provide a stable version as soon as possible.
-There are 2 main branches:
-   - **main**: i try to push a new feature only after i'm sure it's stable or something need a fix
-   - **dev**: 99% of the time is broken, it's used for the active development and it's going to be merged in the main each time a feature is complete  
-
 ## Overview
 
 Incul-manager is a project aimed at replicating some functionalities of Qubes OS using Incus containers and XPRA for seamless application access through ssh.
@@ -45,6 +38,7 @@ This project is a hobbyist endeavor and not developed by a security expert. It d
    ```bash
    incul-manager create-template
    ```
+
    During the creation of the template, you will be asked to choose username, password and container name.
 
    This template includes essential applications like Thunar, XFCE4-terminal, and more.
