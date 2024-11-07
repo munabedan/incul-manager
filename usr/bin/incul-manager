@@ -10,6 +10,7 @@ import shutil
 # create  incul container
 # - create incul container
 # - append incul container .desktop files to host .desktop files
+# TODO: Move in another file and/or semplify to make it more readable
 def create(container_name, template_name):
     home = os.environ["HOME"]
     subprocess.run(["incus", "copy", template_name, container_name])
@@ -43,7 +44,6 @@ def create(container_name, template_name):
         # Copy the username from the template config.sh if not creating a new user
         with open(f"{home}/.config/inculs-manager/configs/{template_name}-config.sh", "r") as file:
             for line in file:
-                print(line)
                 if line.startswith("username="):
                     username = line.split("=")[1].strip().strip('"')
                     print(f"Username copied from template: {username}")
