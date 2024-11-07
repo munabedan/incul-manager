@@ -10,9 +10,15 @@ echo -e "\n\e[1;33mSet up backports...\e[0m"
 echo "deb http://deb.debian.org/debian bookworm-backports main" | sudo tee /etc/apt/sources.list.d/bookworm-backports.list >/dev/null
 sudo apt update
 
-# Step 2: Install incus
+# Step 2: Install incus if not already installed
 echo -e "\n\e[1;33mInstall Incus...\e[0m"
-sudo apt install incus/bookworm-backports
+if ! package_installed incus; then
+	sudo apt install incus/bookworm-backports
+	need_reboot=true
+else
+	echo "Incus is already installed."
+	need_reboot=false
+fi
 
 sudo apt install python3-netifaces xpra python3-cups python3-opencv python3-gi-cairo xfce4-notifyd
 
@@ -31,10 +37,12 @@ mkdir -p /home/$USER/.config/inculs-manager/configs
 sudo cp -r /etc/inculs-manager/launcher-config/desktop-directories /home/$USER/.local/share/
 sudo cp /etc/inculs-manager/launcher-config/xfce-applications.menu /home/$USER/.config/menus
 
-echo -e "\n\e[1;33mIncul needs restart. This action requires confirmation. Press any key to continue...\e[0m"
-
 read -n 1 -s -r -p ""
 
-echo "Restarting the computer..."
-
-sudo reboot now
+if [ "$need_reboot" = true ]; then
+	echo -e "\n\e[1;33mIncul needs restart. This action requires confirmation. Press any key to continue...\e[0m"
+	echo "Restarting the computer..."
+	sudo reboot now
+else
+	echo "No need to reboot."
+fi
