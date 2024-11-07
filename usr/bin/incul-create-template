@@ -15,6 +15,7 @@ username=${username:-incul}
 
 read -sp "Enter password (default: incul): " password
 password=${password:-incul}
+echo
 
 read -p "Enter template name (default: incul-template): " template_name
 template_name=${template_name:-incul-template} 
