@@ -46,8 +46,11 @@ def new_user(container_name):
         subprocess.run(["incus", "file", "push", f"/home/{os.environ['USER']}/.config/incul-manager/{container_name}-config.sh", f"{container_name}/root/config.sh"])
         subprocess.run(["incus", "exec", container_name, "--", "chmod", "+x", "/root/config.sh"])
         subprocess.run(["incus", "exec", container_name, "--", "/root/incul-create-user"])
+        subprocess.run(["incus", "exec", container_name, "--","sudo", "deluser", "--remove-all-file", "incul"])
     else:
         print("Keeping the default user incul:incul")
+
+
 
 def start(container_name):
     subprocess.run(["incus", "start", container_name])
