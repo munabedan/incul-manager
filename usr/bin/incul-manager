@@ -55,6 +55,7 @@ def delete(container_name):
 
     stop(container_name)
     subprocess.run(["incus", "delete", container_name])
+    subprocess.run(["incus", "network", "delete", f"net-{container_name}"])
 
     sync()
     restart_panel()
