@@ -25,6 +25,7 @@ sudo adduser "$CURRENT_USER" incus-admin
 mkdir -p /home/$USER/.local/share/applications
 mkdir -p /home/$USER/.local/share/desktop-directories
 mkdir -p /home/$USER/.config/menus
+mkdir -p /home/$USER/.config/incul-manager
 
 
 sudo cp -r /etc/inculs-manager/launcher-config/desktop-directories /home/$USER/.local/share/

@@ -1,16 +1,17 @@
 #!/usr/bin/python3
 
-
 import sys
 import subprocess
 import os
 import time
+import shutil
 
 # create  incul container
 # - create incul container
 # - append incul container .desktop files to host .desktop files
 def create(container_name):
     subprocess.run(["incus", "copy", "incul-template", container_name])
+    shutil.copy("/etc/inculs-manager/config.sh", f"/home/{os.environ['USER']}/.config/incul-manager/{container_name}-config.sh")
 
     start(container_name)
 
@@ -18,10 +19,35 @@ def create(container_name):
     # TODO: check for ip availability instead
     time.sleep(5)
 
+    new_user(container_name)
+
     sync()
 
     restart_panel()
 
+def new_user(container_name):
+    # Ask if the user wants a new username and password for this container
+    new_user = input("Do you want to create a new user for this container? (y/n): ").strip().lower()
+    if new_user == "y":
+        username = input("Enter the new username: ").strip()
+        password = input("Enter the new password: ").strip()
+        
+        with open(f"/home/{os.environ['USER']}/.config/incul-manager/{container_name}-config.sh", "r") as file:
+            config_lines = file.readlines()
+        with open(f"/home/{os.environ['USER']}/.config/incul-manager/{container_name}-config.sh", "w") as file:
+            for line in config_lines:
+                if line.startswith("username="):
+                    file.write(f'username="{username}"\n')
+                elif line.startswith("password="):
+                    file.write(f'password="{password}"\n')
+                else:
+                    file.write(line)
+                    
+        subprocess.run(["incus", "file", "push", f"/home/{os.environ['USER']}/.config/incul-manager/{container_name}-config.sh", f"{container_name}/root/config.sh"])
+        subprocess.run(["incus", "exec", container_name, "--", "chmod", "+x", "/root/config.sh"])
+        subprocess.run(["incus", "exec", container_name, "--", "/root/incul-create-user"])
+    else:
+        print("Keeping the default user incul:incul")
 
 def start(container_name):
     subprocess.run(["incus", "start", container_name])
