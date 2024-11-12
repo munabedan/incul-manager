@@ -11,7 +11,12 @@ import time
 # - append incul container .desktop files to host .desktop files
 def create(container_name):
     subprocess.run(["incus", "copy", "incul-template", container_name])
-
+    
+    # detach generic network and attach new network
+    subprocess.run(["incus", "network", "detach", "def", container_name])
+    subprocess.run(["incus", "network", "create", f"net-{container_name}"])
+    subprocess.run(["incus", "network", "attach", f"net-{container_name}", container_name])
+    
     start(container_name)
 
     # wait for container to start
@@ -50,6 +55,7 @@ def delete(container_name):
 
     stop(container_name)
     subprocess.run(["incus", "delete", container_name])
+    subprocess.run(["incus", "network", "delete", f"net-{container_name}"])
 
     sync()
     restart_panel()

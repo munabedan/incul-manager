@@ -2,10 +2,17 @@
 
 echo -e "\n\e[1;33mSetup incul template...\e[0m"
 
+# Check if "def" is in the incus network list
+if ! incus network list | grep -q "def"; then
+    echo "Network 'def' does not exist. Please create it before proceeding."
+    incus network create def
+    incus network detach-profile incusbr0 default 
+fi
+
 # launch incus
 incus admin init --minimal
 
-incus launch images:debian/12 incul-template
+incus launch images:debian/12 incul-template --network def
 
 #copy files to container
 incus file push /etc/inculs-manager/config.sh incul-template/root/
