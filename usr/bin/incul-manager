@@ -24,7 +24,8 @@ def create(container_name):
     # TODO: check for ip availability instead
     time.sleep(5)
     
-    new_user(container_name)
+    user = new_user(container_name)
+    import_ssh_keys(container_name, user)
     
     sync()
 
@@ -54,15 +55,14 @@ def new_user(container_name):
         subprocess.run(["incus", "exec", container_name, "--", "chmod", "+x", "/root/config.sh"])
         subprocess.run(["incus", "exec", container_name, "--", "/root/incul-create-user"])
         subprocess.run(["incus", "exec", container_name, "--","sudo", "deluser", "--remove-all-file", "incul"])
-        create_ssh_keys(container_name, username)
+        return username
     else:
         print("Keeping the default user incul:incul")
-        create_ssh_keys(container_name, "incul")
+        return "incul"
 
 
-def create_ssh_keys(container_name, username):
+def import_ssh_keys(container_name, username):
     ip_address = get_container_ip(container_name)
-    public_key = open(f"/home/{os.environ['USER']}/.ssh/incul-id_rsa.pub", "r").read()
     
     # Create the .ssh directory and add give correct permissions to the folder
     subprocess.run(["incus", "exec", container_name, "--", "mkdir", "-p", f"/home/{username}/.ssh"])
