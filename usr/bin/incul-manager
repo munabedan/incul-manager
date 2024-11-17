@@ -148,43 +148,14 @@ if __name__ == "__main__":
         )
         sys.exit(1)
 
-    if action == "list":
+    if action in ["list", "init", "sync"]:
         actions[action]()
 
-    if action == "init":
-        actions[action]()
-
-    if action == "sync":
-        actions[action]()
-
-    if action == "create":
+    if action in ["create", "start", "pause", "stop", "restart", "backup", "delete"]:
         arg_check(container_name)
         actions[action](container_name)
 
-    if action == "start":
-        arg_check(container_name)
-        actions[action](container_name)
-
-    if action == "pause":
-        arg_check(container_name)
-        actions[action](container_name)
-
-    if action == "stop":
-        arg_check(container_name)
-        actions[action](container_name)
-
-    if action == "restart":
-        arg_check(container_name)
-        actions[action](container_name)
-
-    if action == "backup":
-        arg_check(container_name)
-        actions[action](container_name)
-
-    if action == "delete":
-        arg_check(container_name)
-        actions[action](container_name)
-
+    # TODO: be able to create different templates
     if action == "create-template":
         actions[action]()
 
