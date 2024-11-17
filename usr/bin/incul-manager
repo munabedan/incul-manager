@@ -115,7 +115,10 @@ def restart_panel():
     script_path = "restart-xfce4-panel"
     run_script(script_path)
 
-
+def arg_check(container_name):
+    if container_name is None:
+        print("Please provide a container name for this action.")
+        sys.exit(1)
 
 if __name__ == "__main__":
     if len(sys.argv) < 2:
@@ -155,24 +158,31 @@ if __name__ == "__main__":
         actions[action]()
 
     if action == "create":
+        arg_check(container_name)
         actions[action](container_name)
 
     if action == "start":
+        arg_check(container_name)
         actions[action](container_name)
 
     if action == "pause":
+        arg_check(container_name)
         actions[action](container_name)
 
     if action == "stop":
+        arg_check(container_name)
         actions[action](container_name)
 
     if action == "restart":
+        arg_check(container_name)
         actions[action](container_name)
 
     if action == "backup":
+        arg_check(container_name)
         actions[action](container_name)
 
     if action == "delete":
+        arg_check(container_name)
         actions[action](container_name)
 
     if action == "create-template":
