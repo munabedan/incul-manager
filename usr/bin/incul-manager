@@ -11,7 +11,12 @@ import time
 # - append incul container .desktop files to host .desktop files
 def create(container_name):
     subprocess.run(["incus", "copy", "incul-template", container_name])
-
+    
+    # detach generic network and attach new network
+    subprocess.run(["incus", "network", "detach", "def", container_name])
+    subprocess.run(["incus", "network", "create", f"net-{container_name}"])
+    subprocess.run(["incus", "network", "attach", f"net-{container_name}", container_name])
+    
     start(container_name)
 
     # wait for container to start
@@ -50,6 +55,7 @@ def delete(container_name):
 
     stop(container_name)
     subprocess.run(["incus", "delete", container_name])
+    subprocess.run(["incus", "network", "delete", f"net-{container_name}"])
 
     sync()
     restart_panel()
@@ -115,7 +121,10 @@ def restart_panel():
     script_path = "restart-xfce4-panel"
     run_script(script_path)
 
-
+def arg_check(container_name):
+    if container_name is None:
+        print("Please provide a container name for this action.")
+        sys.exit(1)
 
 if __name__ == "__main__":
     if len(sys.argv) < 2:
@@ -145,36 +154,14 @@ if __name__ == "__main__":
         )
         sys.exit(1)
 
-    if action == "list":
+    if action in ["list", "init", "sync"]:
         actions[action]()
 
-    if action == "init":
-        actions[action]()
-
-    if action == "sync":
-        actions[action]()
-
-    if action == "create":
+    if action in ["create", "start", "pause", "stop", "restart", "backup", "delete"]:
+        arg_check(container_name)
         actions[action](container_name)
 
-    if action == "start":
-        actions[action](container_name)
-
-    if action == "pause":
-        actions[action](container_name)
-
-    if action == "stop":
-        actions[action](container_name)
-
-    if action == "restart":
-        actions[action](container_name)
-
-    if action == "backup":
-        actions[action](container_name)
-
-    if action == "delete":
-        actions[action](container_name)
-
+    # TODO: be able to create different templates
     if action == "create-template":
         actions[action]()
 
