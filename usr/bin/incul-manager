@@ -121,7 +121,10 @@ def restart_panel():
     script_path = "restart-xfce4-panel"
     run_script(script_path)
 
-
+def arg_check(container_name):
+    if container_name is None:
+        print("Please provide a container name for this action.")
+        sys.exit(1)
 
 if __name__ == "__main__":
     if len(sys.argv) < 2:
@@ -151,36 +154,14 @@ if __name__ == "__main__":
         )
         sys.exit(1)
 
-    if action == "list":
+    if action in ["list", "init", "sync"]:
         actions[action]()
 
-    if action == "init":
-        actions[action]()
-
-    if action == "sync":
-        actions[action]()
-
-    if action == "create":
+    if action in ["create", "start", "pause", "stop", "restart", "backup", "delete"]:
+        arg_check(container_name)
         actions[action](container_name)
 
-    if action == "start":
-        actions[action](container_name)
-
-    if action == "pause":
-        actions[action](container_name)
-
-    if action == "stop":
-        actions[action](container_name)
-
-    if action == "restart":
-        actions[action](container_name)
-
-    if action == "backup":
-        actions[action](container_name)
-
-    if action == "delete":
-        actions[action](container_name)
-
+    # TODO: be able to create different templates
     if action == "create-template":
         actions[action]()
 
